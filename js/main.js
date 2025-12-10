@@ -118,7 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Endpoint — local test server (adjust if your server runs on another port)
-      const endpoint = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://localhost:4000/send-quote' : '/send-quote';
+      const endpoint = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  ? 'http://localhost:4000/send-quote'
+  : '/.netlify/functions/send-quote';
+
 
       fetch(endpoint, fetchOptions)
         .then(res => {

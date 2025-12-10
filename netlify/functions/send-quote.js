@@ -1,96 +1,95 @@
 ﻿// netlify/functions/send-quote.js
 const nodemailer = require('nodemailer');
-const Busboy = require('busboy');
 
-exports.handler = async (event, context) => {
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: JSON.stringify({ error: 'Method not allowed' }) };
-  }
+const SMTP_HOST = process.env.SMTP_HOST;
+const SMTP_PORT = Number(process.env.SMTP_PORT || 465);
+const SMTP_USER = process.env.SMTP_USER;
+const SMTP_PASS = process.env.SMTP_PASS;
+const RECEIVER_EMAIL = process.env.RECEIVER_EMAIL;
+const SENDER_EMAIL = process.env.SENDER_EMAIL || SMTP_USER;
 
-  return new Promise((resolve) => {
-    // Normalize headers for Busboy
-    const headers = {};
-    for (const k in event.headers) headers[k.toLowerCase()] = event.headers[k];
+const transporter = nodemailer.createTransport({
+  host: SMTP_HOST,
+  port: SMTP_PORT,
+  secure: SMTP_PORT === 465,
+  auth: {
+    user: SMTP_USER,
+    pass: SMTP_PASS,
+  },
+});
 
-    const busboy = new Busboy({ headers });
-    const fields = {};
-    const files = [];
+const htmlForAdmin = (form) => {
+  const rows = Object.entries(form || {})
+    .filter(([k]) => k !== 'attachments')
+    .map(([k, v]) => `<tr><td style="padding:6px 10px;font-weight:600;border:1px solid #eee;">${k}</td><td style="padding:6px 10px;border:1px solid #eee;">${String(v)}</td></tr>`)
+    .join('');
+  return `
+    <div style="font-family:Arial,Helvetica,sans-serif;max-width:700px;">
+      <h2>New Quote Request</h2>
+      <table style="border-collapse:collapse;width:100%">${rows}</table>
+      <p>Attached files (if any) are included below.</p>
+      <hr/>
+      <footer style="font-size:12px;color:#666">Marian Global Services</footer>
+    </div>
+  `;
+};
 
-    busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
-      const buffers = [];
-      file.on('data', (data) => buffers.push(data));
-      file.on('end', () => {
-        files.push({
-          fieldname,
-          filename,
-          content: Buffer.concat(buffers),
-          contentType: mimetype
-        });
+const htmlForClient = (form) => {
+  const name = form?.name || 'Client';
+  return `
+    <div style="font-family:Arial,Helvetica,sans-serif;max-width:700px;">
+      <h2>Thanks, ${name} — we received your request</h2>
+      <p>We will respond soon. A summary of your submission:</p>
+      <ul>
+        ${Object.entries(form || {}).map(([k,v]) => `<li><strong>${k}:</strong> ${String(v)}</li>`).join('')}
+      </ul>
+      <p>Regards,<br/>Marian Global Services</p>
+    </div>
+  `;
+};
+
+exports.handler = async function (event) {
+  try {
+    if (event.httpMethod !== 'POST') {
+      return { statusCode: 405, body: 'Method Not Allowed' };
+    }
+
+    // handle base64 encoded body or raw JSON
+    const raw = event.body && (event.isBase64Encoded ? Buffer.from(event.body, 'base64').toString('utf8') : event.body);
+    const payload = typeof raw === 'string' ? JSON.parse(raw) : raw;
+
+    const { form = {}, attachments = [] } = payload;
+
+    const mailAttachments = Array.isArray(attachments)
+      ? attachments.map((a) => ({
+          filename: a.filename,
+          content: Buffer.from(a.content, 'base64'),
+          contentType: a.contentType || undefined,
+        }))
+      : [];
+
+    // Send admin email
+    await transporter.sendMail({
+      from: SENDER_EMAIL,
+      to: RECEIVER_EMAIL,
+      subject: `New Quote Request — ${form.name || 'No name'}`,
+      html: htmlForAdmin(form),
+      attachments: mailAttachments,
+    });
+
+    // Send confirmation to client if email provided
+    if (form.email) {
+      await transporter.sendMail({
+        from: SENDER_EMAIL,
+        to: form.email,
+        subject: `We received your quote request — ${form.name || ''}`,
+        html: htmlForClient(form),
       });
-    });
+    }
 
-    busboy.on('field', (fieldname, val) => {
-      // keep last value if duplicated
-      fields[fieldname] = val;
-    });
-
-    busboy.on('finish', async () => {
-      try {
-        // Setup transporter via SMTP environment variables (set these in Netlify)
-        const transporter = nodemailer.createTransport({
-          host: process.env.SMTP_HOST,
-          port: Number(process.env.SMTP_PORT || 587),
-          secure: process.env.SMTP_SECURE === 'true',
-          auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASS
-          }
-        });
-
-        // Email to site owner (Zoho address)
-        const mailOptionsToYou = {
-          from: `"Marian Global Services" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
-          to: process.env.TO_EMAIL,
-          subject: `New Quote Request from ${fields.name || fields.email || 'Website'}`,
-          text: [
-            `Name: ${fields.name || ''}`,
-            `Email: ${fields.email || ''}`,
-            `Phone: ${fields.country_code || ''} ${fields.phone || ''}`,
-            `Target languages: ${fields.target_languages || ''}`,
-            `Details: ${fields.details || ''}`
-          ].join('\n\n'),
-          attachments: files.map(f => ({
-            filename: f.filename,
-            content: f.content,
-            contentType: f.contentType
-          }))
-        };
-
-        await transporter.sendMail(mailOptionsToYou);
-
-        // Optional autoresponder to submitter
-        if (fields.email) {
-          try {
-            await transporter.sendMail({
-              from: `"Marian Global Services" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
-              to: fields.email,
-              subject: 'Thanks — we received your quote request',
-              text: `Hi ${fields.name || ''},\n\nThanks for contacting Marian Global Services. We have received your request and will reply shortly.\n\nRegards,\nMarian Global Services`
-            });
-          } catch (autErr) {
-            console.warn('Autoresponder failed:', autErr && autErr.message);
-          }
-        }
-
-        resolve({ statusCode: 200, body: JSON.stringify({ message: 'Form submitted successfully.' }) });
-      } catch (err) {
-        console.error('send error', err && (err.stack || err.message || err));
-        resolve({ statusCode: 500, body: JSON.stringify({ error: err.message || 'Internal error' }) });
-      }
-    });
-
-    // Support Netlify base64-encoded body
-    const bodyBuffer = Buffer.from(event.body || '', event.isBase64Encoded ? 'base64' : 'utf8');
-    busboy.end(bodyBuffer);
-  });
+    return { statusCode: 200, body: JSON.stringify({ ok: true, message: 'Emails sent' }) };
+  } catch (err) {
+    console.error('send-quote error:', err);
+    return { statusCode: 500, body: JSON.stringify({ ok: false, error: String(err) }) };
+  }
 };

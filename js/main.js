@@ -152,12 +152,24 @@ document.addEventListener('DOMContentLoaded', () => {
           console.error('Form submit error', err);
           alert('Server error — please try again later.');
         })
-        .finally(() => {
-          if (submitButton) {
-            submitButton.textContent = _mgs_original_btn_text || 'Request a Custom Quote';
-            submitButton.disabled = false;
+              .finally(() => {
+        // Try to restore the original button text safely.
+        try {
+          // prefer the original reference if present
+          let btnToRestore = submitButton;
+          if (!btnToRestore || !(btnToRestore instanceof Element)) {
+            // fallback: find the submit button inside the current form
+            btnToRestore = form.querySelector('button[type="submit"], input[type="submit"]');
           }
-        });
+          if (btnToRestore) {
+            btnToRestore.textContent = _mgs_original_btn_text || 'Request a Custom Quote';
+            btnToRestore.disabled = false;
+          }
+        } catch (err) {
+          console.error('Failed to restore submit button:', err);
+        }
+      });
+
 
     });
   });

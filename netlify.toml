@@ -1,6 +1,0 @@
-﻿[build]
-  publish = "dist-marian-enhanced"
-  functions = "netlify/functions"
-
-[dev]
-  functions = "netlify/functions"

@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- Form submission & validation ---
+    // --- Form submission & validation ---
   document.querySelectorAll('.contact-form').forEach(contactForm => {
     contactForm.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -82,7 +82,9 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!isValid) return;
 
       const submitButton = e.submitter || form.querySelector('button[type="submit"]');
+      let _mgs_original_btn_text = null;
       if (submitButton) {
+        _mgs_original_btn_text = submitButton.textContent;
         submitButton.textContent = 'Sending...';
         submitButton.disabled = true;
       }
@@ -109,19 +111,18 @@ document.addEventListener('DOMContentLoaded', () => {
         Object.keys(payload).forEach(k => fd.append(k, payload[k]));
         fetchOptions = { method: 'POST', body: fd };
       } else {
-        // Send JSON
+        // Send JSON wrapped under "form" so server expects body.form.*
         fetchOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          body: JSON.stringify({ form: payload })
         };
       }
 
       // Endpoint — local test server (adjust if your server runs on another port)
       const endpoint = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-  ? 'http://localhost:4000/send-quote'
-  : '/.netlify/functions/send-quote';
-
+        ? 'http://localhost:4000/send-quote'
+        : '/.netlify/functions/send-quote';
 
       fetch(endpoint, fetchOptions)
         .then(res => {
@@ -132,11 +133,15 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
           // Accept both {success: true} or simple response text
-          const ok = (data && (data.success === true || data.success === 'true')) || (typeof data === 'object' && Object.keys(data).length > 0 && data.success !== false) || (typeof data === 'string' && data.length > 0);
+          const ok = (data && (data.success === true || data.success === 'true')) ||
+                     (typeof data === 'object' && Object.keys(data).length > 0 && data.success !== false) ||
+                     (typeof data === 'string' && data.length > 0);
+
           if (ok) {
             alert('Thank you! Your request has been sent successfully.');
             form.reset();
             // reset file name display if present
+            const fileNameDisplay = document.getElementById('file-name-display');
             if (fileNameDisplay) fileNameDisplay.textContent = 'No file chosen';
           } else {
             const err = (data && data.error) ? data.error : (data && data.text) ? data.text : 'Unknown server response';
@@ -149,12 +154,14 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .finally(() => {
           if (submitButton) {
-            submitButton.textContent = 'Request a Custom Quote';
+            submitButton.textContent = _mgs_original_btn_text || 'Request a Custom Quote';
             submitButton.disabled = false;
           }
         });
+
     });
   });
+
 
   // --- Simulated acknowledgment (keeps the previous console output behavior) ---
   function simulateAcknowledgment(userName) {

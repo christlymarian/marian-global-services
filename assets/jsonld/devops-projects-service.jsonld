@@ -1,0 +1,13 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "DevOps Projects & Managed DevOps",
+  "description": "DevOps engineering, CI/CD pipelines, infrastructure automation, monitoring, and managed DevOps services to accelerate delivery and reliability for software teams.",
+  "provider": {
+    "@type": "Organization",
+    "name": "Marian Global Services",
+    "url": "https://www.marianglobalservices.com/"
+  },
+  "serviceType": "DevOps Consulting and Managed Services",
+  "areaServed": "Worldwide"
+}

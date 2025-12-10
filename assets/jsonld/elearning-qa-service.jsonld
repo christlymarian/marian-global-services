@@ -1,0 +1,25 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.marianglobalservices.com/#organization"
+    },
+    {
+      "@type": "Service",
+      "serviceType": "E-Learning QA Testing and SCORM/xAPI Validation",
+      "name": "E-Learning QA Testing and SCORM/xAPI Validation",
+      "description": "Functional and linguistic testing of published courses, verifying navigation, audio/video synchronization, and SCORM/xAPI compliance.",
+      "provider": {
+        "@type": "Organization",
+        "@id": "https://www.marianglobalservices.com/#organization"
+      },
+      "areaServed": {
+        "@type": "GeoShape",
+        "box": "World"
+      },
+      "slogan": "Enterprise-grade E-Learning QA Testing and SCORM/xAPI Validation solutions globally.",
+      "image": "https://www.marianglobalservices.com/assets/images/elearning-qa-hero.jpg"
+    }
+  ]
+}

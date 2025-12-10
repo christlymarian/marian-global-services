@@ -1,0 +1,25 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.marianglobalservices.com/#organization"
+    },
+    {
+      "@type": "Service",
+      "serviceType": "Multilingual Data Entry & Data Classification Services",
+      "name": "Multilingual Data Entry & Data Classification Services",
+      "description": "High-accuracy, large-scale data ingestion and classification across multiple languages, supporting AI/ML training datasets or content migration.",
+      "provider": {
+        "@type": "Organization",
+        "@id": "https://www.marianglobalservices.com/#organization"
+      },
+      "areaServed": {
+        "@type": "GeoShape",
+        "box": "World"
+      },
+      "slogan": "Enterprise-grade Multilingual Data Entry & Data Classification solutions globally.",
+      "image": "https://www.marianglobalservices.com/assets/images/data-entry-hero.jpg"
+    }
+  ]
+}

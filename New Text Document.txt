@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Customer Support Outsourcing for Startups & Businesses | Marian Global Services</title>
+  <meta name="description" content="Scalable, multilingual customer support and helpdesk outsourcing for startups and growing businesses — phone, email, chat, and ticketing support with SLA-backed performance.">
+  <link rel="stylesheet" href="css/brand.css">
+  <link rel="icon" type="image/png" href="assets/logo/marian-icon-32.png">
+  <script type="application/ld+json" src="assets/jsonld/customer-support-service.jsonld"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <nav class="navbar" role="navigation" aria-label="Main Navigation">
+        <a href="index.html" class="logo-link" aria-label="Marian Global Services Home">
+          <!-- Use existing logo svg file -->
+          <img src="assets/logo/marian-horizontal.svg" alt="Marian Global Services" style="height:40px;">
+        </a>
+        <button class="nav-toggle-btn" aria-controls="nav-menu" aria-expanded="false"><span></span><span></span><span></span></button>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="index.html#localization-engineering">Engineering</a></li>
+          <li><a href="index.html#quality-assurance">QA & Testing</a></li>
+          <li><a href="index.html#e-learning-solutions">E-Learning</a></li>
+          <li><a href="index.html#specialized-linguistics">Linguistics</a></li>
+          <li><a href="index.html#contact-us">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="service-hero section is-visible">
+      <div class="container">
+        <p class="highlight" style="font-weight:600;">CUSTOMER SUPPORT</p>
+        <h1>Customer Support Outsourcing for Startups & Businesses</h1>
+        <p class="text-center" style="max-width:900px;margin:0 auto;font-size:1.15rem;">
+          Scalable, multilingual helpdesk & support designed for startups and growing businesses. Phone, email, chat and ticketing with SLA monitoring and knowledge-base management.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container" style="max-width:1000px;">
+        <h2>Overview: Customer Support Outsourcing</h2>
+        <p>We help startups and SMBs deliver consistent, high-quality customer experiences at scale. Our services combine human agents, ticketing workflows and reporting so you can focus on product while we manage front-line support.</p>
+        <h3>Core Offerings</h3>
+        <ul>
+          <li>Multichannel support: email, chat, voice, and social.</li>
+          <li>Multilingual teams for global markets.</li>
+          <li>SLA dashboards, reporting and escalation matrices.</li>
+          <li>Knowledge base creation and maintenance.</li>
+          <li>Onboarding & training tailored to your product.</li>
+        </ul>
+
+        <h3 style="margin-top:1.5rem;">Use Cases</h3>
+        <p>Ideal for SaaS, e-commerce, mobile apps and any product that needs reliable customer-facing teams without heavy hiring overhead.</p>
+
+        <div class="benefits-grid" style="margin-top:1.5rem;">
+          <div class="benefit-card"><h4>Scalable Teams</h4><p>Add or reduce seats quickly as your business changes.</p></div>
+          <div class="benefit-card"><h4>Multilingual</h4><p>Native or fluent agents in key markets to reduce friction and increase conversion.</p></div>
+          <div class="benefit-card"><h4>Operational Excellence</h4><p>SLA-driven performance with weekly and monthly reporting.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-form-section bg-dark text-center section" id="contact-us">
+      <div class="container">
+        <h2 class="text-light">Interested in outsourcing customer support?</h2>
+        <p class="text-light" style="max-width:700px;margin:0 auto 2rem auto;">Fill in the quote form and our solutions team will reach out with a tailored plan and pricing.</p>
+        <!-- Link to your existing contact form section on index page -->
+        <a href="index.html#contact-us" class="btn btn-primary">Request a Support Quote</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year">2025</span> Marian Global Services. All Rights Reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a> | <a href="security.html">Security Disclosure</a></p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

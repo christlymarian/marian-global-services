@@ -1,0 +1,1013 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Inter:wght@400;600&display=swap');
+
+:root {
+    /* Brand Palette: Marian Global Services (Navy/Gold/Warm Grey) */
+    --color-primary: #0F1D3C;
+    --color-secondary: #FFC300;
+    --color-text-dark: #1A1A1A;  
+    --color-text-light: #F0F0F0;
+    --color-background-light: #FFFFFF;
+    --color-background-mid: #F8F8F8;
+    --color-background-dark: #0A1426;
+    
+    /* Subtle Gradient Background */
+    --bg-gradient: radial-gradient(circle at top right, rgba(15, 29, 60, 0.05) 0%, rgba(255, 255, 255, 0) 60%);
+
+    /* Typography */
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    
+    /* Spacing & Breakpoints */
+    --space-sm: 1rem;
+    --space-md: 2rem;
+    --space-lg: 4rem;
+    --space-xl: 6rem;
+    --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --bp-tablet: 768px;
+}
+
+/* Base Reset & Fluid Typography */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s, opacity 0.3s;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--color-text-dark);
+    line-height: 1.6;
+    background: var(--color-background-light) var(--bg-gradient);
+    min-height: 100vh;
+}
+main {
+    flex-grow: 1;
+}
+
+/* Fluid Typography */
+h1 {
+    font-size: clamp(2.5rem, 6vw + 1rem, 4rem); 
+    font-weight: 800;
+    color: var(--color-primary);
+}
+h2 {
+    font-size: clamp(2rem, 4vw + 0.5rem, 3rem);
+    font-weight: 700;
+    color: var(--color-primary);
+}
+h3 {
+    font-size: clamp(1.4rem, 2vw + 1rem, 1.8rem);
+    font-weight: 700;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+p {
+    margin-bottom: 1rem;
+    line-height: 1.7; /* Enhanced readability */
+}
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+a:hover {
+    color: var(--color-secondary);
+    opacity: 0.9;
+}
+
+/* Utility & Layout */
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--space-md);
+}
+.section {
+    padding: var(--space-lg) var(--space-md);
+    opacity: 0; /* Used for JS fade-in animation */
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.bg-primary { background-color: var(--color-primary); }
+.bg-dark { 
+    background-color: var(--color-background-dark); 
+    color: var(--color-text-light);
+}
+.bg-mid { background-color: var(--color-background-mid); }
+.highlight { color: var(--color-secondary); }
+
+/* Buttons & CTAs */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px; /* Slightly rounded */
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.btn-primary {
+    background-color: var(--color-secondary);
+    color: var(--color-text-dark);
+}
+.btn-primary:hover {
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* 1. Navigation Enhancements */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(8px);
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+}
+.logo-link svg {
+    height: 40px; 
+    width: auto;
+}
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: var(--space-md);
+}
+.nav-links li a {
+    font-weight: 600;
+    padding: 0.5rem 0;
+    display: block;
+    position: relative;
+}
+.nav-links li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    height: 2px;
+    width: 80%;
+    background-color: var(--color-secondary);
+    transition: transform 0.3s ease;
+}
+.nav-links li a:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+/* Hamburger Menu Icon & Mobile Nav */
+.nav-toggle-btn {
+    display: none; /* Hidden on desktop */
+    width: 30px;
+    height: 24px;
+    position: relative;
+    transform: rotate(0deg);
+    cursor: pointer;
+    padding: 0;
+    background: none;
+    border: none;
+    z-index: 1010;
+}
+.nav-toggle-btn span {
+    display: block;
+    position: absolute;
+    height: 4px;
+    width: 100%;
+    background: var(--color-primary);
+    border-radius: 2px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: .25s ease-in-out;
+}
+.nav-toggle-btn span:nth-child(1) { top: 0px; }
+.nav-toggle-btn span:nth-child(2) { top: 10px; }
+.nav-toggle-btn span:nth-child(3) { top: 20px; }
+
+.nav-toggle-btn.open span:nth-child(1) { top: 10px; transform: rotate(135deg); }
+.nav-toggle-btn.open span:nth-child(2) { opacity: 0; left: -60px; }
+.nav-toggle-btn.open span:nth-child(3) { top: 10px; transform: rotate(-135deg); }
+
+@media (max-width: var(--bp-tablet)) {
+    .nav-toggle-btn { display: block; }
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: -300px; /* Hidden off-screen */
+        width: 300px;
+        max-width: 80vw;
+        height: 100vh;
+        background-color: var(--color-background-dark);
+        padding-top: 100px;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        z-index: 1005;
+        gap: 0;
+        transition: right 0.4s ease-in-out;
+    }
+    .nav-links.active {
+        display: flex;
+        right: 0; /* Slide in */
+    }
+    .nav-links li a {
+        color: var(--color-text-light);
+        padding: 1rem var(--space-md);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .nav-links li a:hover {
+        background-color: var(--color-primary);
+        color: var(--color-secondary);
+    }
+}
+
+/* Service Cards */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-md);
+    padding-top: var(--space-md);
+}
+.service-card {
+    background-color: var(--color-background-light);
+    border: 1px solid var(--color-background-mid);
+    border-radius: 12px;
+    padding: var(--space-md);
+    box-shadow: var(--shadow-subtle);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Sticky CTA Button (5. Professional Enhancements) */
+.sticky-quote-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 900;
+    display: none; /* Initially hidden */
+    opacity: 0;
+    transition: opacity 0.5s, transform 0.3s;
+    font-size: 0.9rem;
+    padding: 0.75rem 1.25rem;
+}
+.sticky-quote-btn.show {
+    display: flex;
+    opacity: 1;
+}
+
+/* Contact Form Overhaul (Responsive & Premium) */
+.cta-form-section h2 {
+    color: var(--color-secondary);
+}
+.contact-form {
+    display: grid;
+    gap: var(--space-sm);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    padding: var(--space-md);
+    background-color: var(--color-background-light);
+    border-radius: 12px;
+    box-shadow: var(--shadow-subtle);
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--color-primary);
+}
+.form-group input, 
+.form-group textarea, 
+.form-group select {
+    padding: 0.8rem;
+    border: 1px solid #CCC;
+    border-radius: 6px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.form-group input:focus, .form-group textarea:focus {
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 0 3px rgba(255, 195, 0, 0.3);
+    outline: none;
+}
+.contact-form button[type="submit"] {
+    grid-column: 1 / -1;
+    margin-top: var(--space-sm);
+    font-size: 1.1rem;
+}
+
+/* Footer Design */
+.site-footer {
+    padding: var(--space-md) var(--space-sm);
+    background-color: var(--color-background-dark);
+    color: var(--color-text-light);
+    font-size: 0.85rem;
+    text-align: center;
+}
+.site-footer a {
+    color: var(--color-secondary);
+}
+.site-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Service Page Specifics */
+.service-hero {
+    background-color: var(--color-background-mid);
+    padding: var(--space-xl) var(--space-sm);
+    text-align: center;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-md);
+    margin-top: var(--space-md);
+}
+.benefit-card {
+    border-left: 5px solid var(--color-secondary);
+    border-radius: 8px;
+    padding: var(--space-md);
+    background-color: var(--color-background-light);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-md);
+}
+.step-card {
+    border-radius: 8px;
+    border-top: 4px solid var(--color-primary);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    padding: var(--space-md);
+    background-color: var(--color-background-light);
+}
+.step-card h3 {
+    color: var(--color-primary);
+}
+/* ----- Show selected filename beside file input ----- */
+.file-name {
+  color: #222; /* visible dark text */
+  max-width: 60%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-row input[type="file"] {
+  flex: 0 0 auto;
+}
+
+/* ===== MGS Mobile menu & contact-centering (REPLACE previous mgs block) ===== */
+
+/* Desktop-safe defaults (hidden unless mobile) */
+.mgs-hamburger { display:none; position:fixed; top:12px; right:12px; z-index:11010; width:44px; height:44px; background: rgba(15,29,60,0.9); border-radius:8px; align-items:center; justify-content:center; cursor:pointer; border:none; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.mgs-hamburger .mgs-bar { width:20px; height:2px; background:#fff; position:relative; transition: transform .22s ease, opacity .22s ease; }
+.mgs-hamburger .mgs-bar::before, .mgs-hamburger .mgs-bar::after { content:""; position:absolute; left:0; width:20px; height:2px; background:#fff; transition: transform .22s ease, top .22s ease, bottom .22s ease, opacity .22s ease; }
+.mgs-hamburger .mgs-bar::before { top:-6px; } .mgs-hamburger .mgs-bar::after { bottom:-6px; }
+.mgs-hamburger.open .mgs-bar { transform: rotate(45deg); }
+.mgs-hamburger.open .mgs-bar::before { transform: rotate(90deg); top:0; }
+.mgs-hamburger.open .mgs-bar::after { opacity:0; }
+
+/* Panel & backdrop hidden by default */
+.mgs-mobile-panel { display:none; }
+.mgs-backdrop { display:none; }
+
+/* Contact-centering helper (applied only on mobile) */
+.mgs-contact-center { margin-left:0; margin-right:0; box-sizing:border-box; }
+
+/* ===== Mobile-only styles ===== */
+/* ===== MGS Mobile: refined positioning (REPLACE previous MGS block with this) ===== */
+
+/* Keep desktop unchanged */
+.mgs-hamburger { display:none; }
+
+/* Mobile-only refinements */
+/* ===== Restore MGS mobile panel option styles (paste after your off-canvas rules) ===== */
+@media (max-width: 768px) {
+  /* panel inner spacing and visual card */
+  .mgs-mobile-panel {
+    padding: 18px 14px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.98), #ffffff);
+  }
+
+  /* heading */
+  .mgs-mobile-panel h3 {
+    margin: 0 0 12px 0;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    padding-left: 6px;
+  }
+
+  /* list container reset */
+  .mgs-mobile-panel ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: block;
+  }
+
+  /* style each item as a soft card */
+  .mgs-mobile-panel li {
+    margin: 10px 0;
+  }
+
+  .mgs-mobile-panel a {
+    display: block;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #fafafa; /* soft card background */
+    box-shadow: 0 6px 18px rgba(15,29,60,0.04);
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform .12s ease, box-shadow .12s ease, background .12s;
+  }
+
+  .mgs-mobile-panel a:hover,
+  .mgs-mobile-panel a:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(15,29,60,0.06);
+    background: rgba(255,195,0,0.03);
+    outline: none;
+  }
+
+  /* smaller text variant for long link names */
+  .mgs-mobile-panel a span {
+    display: inline-block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+  }
+
+  /* ensure scroll area has comfortable bottom padding so last item isn't hidden behind sticky quote or cookie bar */
+  .mgs-mobile-panel.open {
+    padding-bottom: calc(32px + env(safe-area-inset-bottom, 12px));
+  }
+
+  /* if you prefer pill-like appearance for the top highlight */
+  .mgs-mobile-panel .menu-badge {
+    display: inline-block;
+    background: rgba(255,195,0,0.12);
+    color: var(--color-secondary);
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-weight: 800;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+  }
+}
+
+
+  /* Backdrop covers whole viewport *but* panel visually sits below header */
+  @media (max-width: 768px) {
+  .mgs-backdrop {
+    display: block !important;
+    position: fixed;
+    inset: 0;
+    z-index: 12000;
+    background: rgba(0,0,0,0.42);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .22s ease;
+  }
+
+  .mgs-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+
+  /* Contact form — force single-column form and center it */
+  .contact-form, .contact-form * { box-sizing: border-box; } /* safeguard */
+  .contact-form {
+    grid-template-columns: 1fr !important; /* force single column on mobile */
+    width: 92%;
+    max-width: 520px;
+    margin: 0 auto;
+    padding: var(--space-md);
+    background: var(--color-background-light);
+    border-radius: 12px;
+  }
+  .contact-form .form-group input,
+  .contact-form .form-group textarea,
+  .contact-form .form-group select {
+    width:100%;
+  }
+  .contact-form .form-group.full-width { grid-column: 1 / -1; }
+
+  /* Reduce sticky quote button overlap and ensure it appears above panel if needed */
+  .sticky-quote-btn {
+    right: 12px;
+    bottom: 14px;
+    z-index: 11100;
+  }
+
+  /* Small layout niceties for narrow phones */
+  .mgs-mobile-panel { padding-bottom: 36px; }
+  .mgs-mobile-panel::-webkit-scrollbar { width: 8px; }
+  .mgs-mobile-panel::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.08); border-radius: 8px; }
+}
+/* ===== MGS Emergency fix: restore desktop clickability & hide desktop nav on mobile ===== */
+
+/* Ensure mobile-only elements are inert on desktop */
+.mgs-hamburger,
+.mgs-mobile-panel,
+.mgs-backdrop {
+  display: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+/* Keep desktop nav and logo clickable above any accidental overlays */
+.logo-link, .logo-link * {
+  position: relative;
+  z-index: 13000; /* above anything mobile-related */
+}
+.nav-links, .nav-links a {
+  position: relative;
+  z-index: 12900;
+}
+
+/* Mobile-only: show hamburger & panel, hide desktop nav */
+@media (max-width: 768px) {
+  /* Hide desktop nav so it doesn't double-up with hamburger */
+  .nav-links {
+    display: none !important;
+  }
+
+  /* Reactivate the mobile elements on mobile view */
+  .mgs-hamburger {
+    display: flex !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+  }
+  .mgs-mobile-panel {
+    display: block !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+  }
+  .mgs-backdrop {
+    display: block !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+  }
+}
+/* Defensive: ensure mgs-backdrop cannot block page when closed */
+.mgs-backdrop {
+  pointer-events: none; /* default: don't block clicks */
+}
+
+/* only allow pointer events when it has the explicit .open class */
+.mgs-backdrop.open {
+  pointer-events: auto;
+}
+/* Footer safety: ensure footer links are clickable and not blocked by overlays */
+.site-footer, .site-footer a {
+  position: relative;
+  z-index: 14000; /* above most site content but below very top UI if any */
+  pointer-events: auto;
+}
+
+/* Double-safety: ensure any mobile-backdrop doesn't block clicks unless explicitly open */
+.mgs-backdrop { pointer-events: none; }
+.mgs-backdrop.open { pointer-events: auto; }
+/* ===== Contact info styling (footer + inline) ===== */
+
+/* ===== Footer: refined responsive layout & visuals ===== */
+
+/* Footer background & spacing */
+.site-footer {
+  background-color: var(--color-background-dark);
+  color: var(--color-text-light);
+  padding: 1.25rem 0;
+  font-size: 0.95rem;
+}
+
+/* Use a flexible 3-column layout that gracefully wraps on small screens */
+.footer-grid {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem; /* keep it inset from viewport edges */
+  box-sizing: border-box;
+  flex-wrap: wrap;
+}
+
+/* Columns — allow them to shrink and wrap */
+.footer-left,
+.footer-center,
+.footer-right {
+  flex: 1 1 220px; /* grow, shrink, base width */
+  min-width: 180px;
+}
+
+/* Alignments for desktop */
+.footer-left { text-align: left; }
+.footer-center { text-align: center; }
+.footer-right { text-align: right; }
+
+/* Footer links & contact styling */
+.footer-contacts, .footer-center p, .footer-right p {
+  margin: 0;
+  line-height: 1.35;
+  color: rgba(255,255,255,0.92);
+}
+
+/* Make the email stand out but not huge */
+.footer-email {
+  color: var(--color-secondary);
+  text-decoration: none;
+  font-weight: 600;
+}
+.footer-email:hover { text-decoration: underline; }
+
+/* Subtle separator */
+.footer-sep {
+  color: rgba(255,255,255,0.28);
+  margin: 0 10px;
+}
+
+/* Icons / emoji sizing so they don't dominate on small screens */
+.footer-contacts .icon, .contact-info-inline .icon {
+  font-size: 0.95rem;
+  margin-right: 6px;
+}
+
+/* Inline contact in the contact section */
+.contact-info-inline {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  color: rgba(255,255,255,0.95);
+  font-size: 0.98rem;
+}
+
+/* Tweak for the small address text */
+.footer-address, .contact-address { color: rgba(255,255,255,0.85); }
+
+/* On very narrow screens stack and center everything */
+@media (max-width: 768px) {
+  .footer-grid {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+    padding: 0 14px;
+  }
+  .footer-left, .footer-center, .footer-right {
+    min-width: 0;
+    width: 100%;
+    flex: 1 1 auto;
+    text-align: center;
+  }
+  .footer-right { margin-top: 6px; }
+  .footer-sep { display: none; } /* hide vertical separators on mobile */
+  .contact-info-inline { flex-direction: column; gap: 6px; font-size: 0.95rem; }
+}
+/* ===== Service Page Section Label (highlight tag above H1) ===== */
+.service-hero .highlight {
+  display: inline-block;
+  font-size: 1.05rem;               /* Bigger text size */
+  font-weight: 700 !important;      /* Stronger weight */
+  letter-spacing: 1px;              /* Premium spaced look */
+  color: var(--color-secondary);    /* Gold brand color */
+  text-transform: uppercase;        /* All-caps for authority */
+  margin-bottom: 0.75rem;           /* Nice spacing above H1 */
+}
+/* Service label — Option B: gold pill badge */
+.service-hero .highlight {
+  display: inline-block !important;
+  background: rgba(255,195,0,0.12) !important; /* subtle gold background */
+  color: var(--color-secondary) !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-size: 0.95rem !important;
+  padding: 8px 14px !important;
+  border-radius: 999px !important; /* pill */
+  box-shadow: 0 6px 18px rgba(15,29,60,0.06) !important;
+  margin-bottom: 0.9rem !important;
+}
+/* Extra spacing tweak so label feels properly separated from H1 */
+.service-hero h1 {
+  margin-top: 0.25rem !important;  /* pull H1 closer if needed */
+}
+.service-hero .highlight + h1,
+.service-hero .highlight ~ h1 {
+  margin-top: 0.45rem !important;
+}
+/* FIX: cookie bar layout + z-index + safe area */
+.mgs-cookie-consent {
+  left: 0;
+  right: 0;
+  bottom: env(safe-area-inset-bottom, 14px);
+  z-index: 15100; /* HIGHER than mobile panel & footer */
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .28s ease, transform .28s ease;
+}
+
+/* make the inner box responsive and avoid .container clipping */
+.mgs-cookie-consent .mgs-cookie-inner {
+  width: calc(100% - 28px);    /* full width minus page margins */
+  max-width: 1000px;           /* keep it wide on desktop */
+  margin: 0 14px;              /* avoid container clipping on tiny screens */
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border-radius: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  pointer-events: auto;
+}
+
+/* stack on very small screens */
+@media (max-width: 520px) {
+  .mgs-cookie-consent .mgs-cookie-inner { flex-direction: column; align-items: stretch; width: calc(100% - 20px); margin: 0 10px; padding: 12px; }
+  .mgs-cookie-actions { justify-content: flex-end; gap: 8px; }
+}
+
+/* visible class */
+.mgs-cookie-consent.mgs-visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+/* ensure sticky quote moves up when cookie bar visible */
+body.mgs-cookie-visible .sticky-quote-btn {
+  bottom: calc(94px + env(safe-area-inset-bottom, 0)) !important;
+  z-index: 15200;
+}
+
+/* if your mobile panel still overlays, ensure cookie bar is topmost */
+.mgs-mobile-panel { z-index: 12010; } /* keep as-is or lower than cookie bar */
+.site-footer { z-index: 14000; } /* keep footer below cookie bar if needed */
+/* =========================
+   FORCE-CLEAN MGS MOBILE MENU
+   (Put this at the end of brand.css)
+   ========================= */
+
+/* Prevent accidental horizontal dragging revealing off-canvas content */
+html, body {
+  overflow-x: hidden !important;
+}
+
+/* Safe defaults - hide mobile pieces until mobile media query */
+.mgs-hamburger, .mgs-mobile-panel, .mgs-backdrop {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* ===== Mobile behaviour (clean, single source of truth) ===== */
+@media (max-width: 768px) {
+
+  /* show hamburger (above everything) */
+  .mgs-hamburger {
+    display: flex !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    position: fixed;
+    top: 12px;
+    right: 18px;
+    z-index: 16000; /* very high so it's always clickable */
+    width: 44px;
+    height: 44px;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15,29,60,0.92);
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  }
+
+  /* Panel: fixed and fully off-canvas by default (invisible) */
+  .mgs-mobile-panel {
+    display: block !important;
+    visibility: visible !important;
+    pointer-events: none; /* no interaction when closed */
+    position: fixed !important;
+    top: var(--mgs-header-height, 64px);
+    right: 0;
+    width: 78%;
+    max-width: 360px;
+    height: calc(100vh - var(--mgs-header-height,64px));
+    background: var(--color-background-light);
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    box-shadow: 0 18px 40px rgba(10,10,10,0.22);
+    z-index: 15990;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* OFF-CANVAS: move fully outside viewport to the right */
+    transform: translateX(100%) !important;
+    transition: transform .28s cubic-bezier(.2,.8,.2,1) !important;
+  }
+
+  /* Panel when open: slide in and become interactive */
+  .mgs-mobile-panel.open {
+    transform: translateX(0) !important;
+    pointer-events: auto !important;
+  }
+
+  /* Backdrop: hidden by default, show when .open */
+  .mgs-backdrop {
+    display: block !important;
+    visibility: visible !important;
+    position: fixed !important;
+    inset: 0;
+    z-index: 15980;
+    background: rgba(0,0,0,0.42);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .22s ease;
+  }
+  .mgs-backdrop.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Ensure the main nav-links (desktop) is hidden on mobile to avoid duplication */
+  .nav-links { display: none !important; }
+
+  /* Minor: ensure page content isn't shifted by panel */
+  body { transform: none !important; will-change: auto !important; }
+}
+
+/* Desktop: keep mobile elements inert */
+@media (min-width: 769px) {
+  .mgs-hamburger, .mgs-mobile-panel, .mgs-backdrop {
+    visibility: hidden !important;
+    pointer-events: none !important;
+    display: none !important;
+  }
+}
+/* FIX: ensure cookie bar always fixed in viewport and above other UI */
+#mgs-cookie-consent {
+  position: fixed !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: env(safe-area-inset-bottom, 14px) !important;
+  top: auto !important;
+  margin: 0 auto !important;
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  z-index: 20000 !important; /* well above mobile panel & footer */
+}
+
+/* Keep the inner container centered but prevent container clipping */
+#mgs-cookie-consent .mgs-cookie-inner {
+  width: calc(100% - 32px) !important;
+  max-width: 1100px !important;
+  margin: 0 16px !important;
+}
+/* ===== MGS Cookie Bar — single authoritative style ===== */
+#mgs-cookie-consent {
+  position: fixed !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: env(safe-area-inset-bottom, 18px) !important;
+  z-index: 99999 !important; /* highest UI layer */
+  display: flex !important;
+  justify-content: center !important;
+  pointer-events: auto !important;
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+  transition: transform 260ms ease, opacity 260ms ease;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* inner card */
+#mgs-cookie-consent .mgs-cookie-inner {
+  width: calc(100% - 36px);
+  max-width: 980px;
+  margin: 0 18px;
+  background: linear-gradient(180deg, #ffffff, #fff);
+  border-radius: 14px;
+  padding: 14px 16px;
+  box-shadow: 0 12px 36px rgba(12,20,40,0.12);
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  box-sizing: border-box;
+  border: 1px solid rgba(15,29,60,0.04);
+  position: relative;
+}
+
+/* left: text */
+#mgs-cookie-consent .mgs-cookie-text {
+  flex: 1 1 auto;
+  color: var(--color-text-dark);
+  font-size: 0.96rem;
+  line-height: 1.35;
+  margin-right: 6px;
+}
+#mgs-cookie-consent .mgs-cookie-text strong {
+  display:block;
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 4px;
+}
+
+/* right: actions */
+#mgs-cookie-consent .mgs-cookie-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+/* primary button — pill */
+#mgs-cookie-consent .btn.btn-primary {
+  background: var(--color-secondary);
+  color: var(--color-text-dark);
+  padding: 10px 14px;
+  border-radius: 999px;
+  box-shadow: 0 8px 20px rgba(15,29,60,0.12);
+  font-weight: 700;
+  border: none;
+  min-width: 140px;
+  text-align:center;
+}
+#mgs-cookie-consent .btn.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(15,29,60,0.14);
+}
+
+/* secondary button — outline pill */
+#mgs-cookie-consent .btn.btn-secondary {
+  background: transparent;
+  border: 1px solid rgba(15,29,60,0.10);
+  color: var(--color-primary);
+  padding: 10px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  min-width: 130px;
+}
+
+/* stacked mobile layout */
+@media (max-width: 520px) {
+  #mgs-cookie-consent .mgs-cookie-inner {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px;
+  }
+  #mgs-cookie-consent .mgs-cookie-text { order: 1; }
+  #mgs-cookie-consent .mgs-cookie-actions { order: 2; justify-content: flex-end; gap:8px; margin-top: 6px; }
+  #mgs-cookie-consent .btn { min-width: 110px; padding: 9px 12px; }
+}
+
+/* subtle show animation */
+#mgs-cookie-consent.mgs-visible {
+  animation: mgs-cookie-in .28s ease both;
+}
+@keyframes mgs-cookie-in {
+  from { transform: translateY(12px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+/* Ensure everything in cookie bar receives pointer events */
+#mgs-cookie-consent, #mgs-cookie-consent * { pointer-events: auto !important; }

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Security Disclosure | Marian Global Services</title>
+  <meta name="description" content="Security practices and disclosure information for Marian Global Services — how we protect client data and how to report vulnerabilities." />
+  <link rel="stylesheet" href="css/brand.css" />
+  <link rel="icon" type="image/png" href="assets/logo/marian-icon-32.png" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <nav class="navbar" role="navigation" aria-label="Main Navigation">
+        <a href="index.html" class="logo-link" aria-label="Marian Global Services Home">
+          <img src="assets/logo/marian-horizontal.svg" alt="Marian Global Services" style="height:40px;">
+        </a>
+        <button class="nav-toggle-btn" aria-controls="nav-menu" aria-expanded="false"><span></span><span></span><span></span></button>
+        <ul class="nav-links" id="nav-menu">
+          <li><a href="index.html#localization-engineering">Engineering</a></li>
+          <li><a href="index.html#quality-assurance">QA & Testing</a></li>
+          <li><a href="index.html#e-learning-solutions">E-Learning</a></li>
+          <li><a href="index.html#specialized-linguistics">Linguistics</a></li>
+          <li><a href="index.html#contact-us">Contact</a></li>
+                        </ul>
+
+                <!-- === MGS Mobile Menu (mobile-only; safe for desktop) === -->
+                <button id="mgs-hamburger" class="mgs-hamburger" aria-label="Open services menu" aria-expanded="false" aria-controls="mgs-mobile-panel">
+                  <span class="mgs-bar" aria-hidden="true"></span>
+                </button>
+
+                <div id="mgs-backdrop" class="mgs-backdrop" aria-hidden="true"></div>
+
+                <nav id="mgs-mobile-panel" class="mgs-mobile-panel" aria-hidden="true">
+                  <h3>Our Services</h3>
+                  <ul>
+                    <li><a href="customer-support.html" data-nav-target="customer-support.html">Customer Support</a></li>
+                    <li><a href="devops-projects.html" data-nav-target="devops-projects.html">DevOps Projects</a></li>
+                    <li><a href="website-creation.html" data-nav-target="website-creation.html">Website Creation</a></li>
+                    <li><a href="dtp.html" data-nav-target="dtp.html">DTP / Localization</a></li>
+                    <li><a href="elearning-course-development.html" data-nav-target="elearning-course-development.html">E-Learning</a></li>
+                    <li><a href="qa-qc.html" data-nav-target="qa-qc.html">QA & QC</a></li>
+                  </ul>
+                </nav>
+                <!-- === END MGS Mobile Menu === -->
+            </nav>
+
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container" style="max-width:900px;">
+      <h1>Security Disclosure</h1>
+      <p>This page explains our high-level security practices and how to report vulnerabilities or security concerns.</p>
+
+      <h2>Our security practices</h2>
+      <ul>
+        <li><strong>Data in transit:</strong> Site forms and uploads use TLS (HTTPS) where available. For local testing, we use secure transport to SMTP and other services.</li>
+        <li><strong>Data at rest:</strong> Uploaded files are stored temporarily, processed for quote evaluation, and removed automatically from server storage unless otherwise agreed.</li>
+        <li><strong>Access control:</strong> Administrative access to production systems is restricted to authorized personnel and uses secure authentication methods.</li>
+        <li><strong>Backups & monitoring:</strong> Regular backups and logs are retained to support recovery and incident response.</li>
+      </ul>
+
+      <h2>Reporting vulnerabilities</h2>
+      <p>If you discover a potential security issue affecting our website or services, please report it responsibly.</p>
+      <p>Email: <a href="mailto:security@marianglobalservices.com">security@marianglobalservices.com</a></p>
+      <p>When reporting, please include:</p>
+      <ul>
+        <li>A clear description of the issue and steps to reproduce it.</li>
+        <li>Any relevant URLs, screenshots, timestamps, and test accounts (if applicable).</li>
+        <li>Your contact details so we can follow up.</li>
+      </ul>
+
+      <h2>Coordinated disclosure</h2>
+      <p>We aim to acknowledge reports promptly and work with reporters to verify and remediate issues. We ask that you do not publicly disclose the issue until we have had a reasonable opportunity to address it.</p>
+
+      <h2>Limitations</h2>
+      <p>This page provides a summary of security practices. For production deployments and compliance (e.g., ISO, SOC2), additional controls and audits are recommended.</p>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+<div class="footer-center">
+      <p class="footer-contacts">
+        <a href="mailto:info@marianglobalservices.com" class="footer-email" aria-label="Email us">✉️ info@marianglobalservices.com</a>
+        <span class="footer-sep">|</span>
+        <span class="footer-address" aria-label="Company address">📍 Tirunelveli, Tamil Nadu</span>
+      </p>
+  <div class="container footer-grid">
+    <div class="footer-center">
+      <p>&copy; <span id="year">2025</span> Marian Global Services. All Rights Reserved.</p>
+    </div>
+
+    
+    </div>
+
+    <div class="footer-center">
+      <p>
+        <a href="privacy.html">Privacy Policy</a> |
+        <a href="terms.html">Terms of Service</a> |
+        <a href="security.html">Security Disclosure</a>
+      </p>
+    </div>
+  </div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

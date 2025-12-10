@@ -1,0 +1,25 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.marianglobalservices.com/#organization"
+    },
+    {
+      "@type": "Service",
+      "serviceType": "Professional Multilingual Transcription Services",
+      "name": "Professional Multilingual Transcription Services",
+      "description": "Converting spoken language from audio or video files into accurate, time-coded text, serving as the source for subsequent localization.",
+      "provider": {
+        "@type": "Organization",
+        "@id": "https://www.marianglobalservices.com/#organization"
+      },
+      "areaServed": {
+        "@type": "GeoShape",
+        "box": "World"
+      },
+      "slogan": "Enterprise-grade Professional Multilingual Transcription solutions globally.",
+      "image": "https://www.marianglobalservices.com/assets/images/transcription-hero.jpg"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Website Creation & Design Projects",
+  "description": "Full-stack website creation and design services: UX/UI, responsive development, CMS integration, performance optimization and SEO-friendly builds for businesses.",
+  "provider": {
+    "@type": "Organization",
+    "name": "Marian Global Services",
+    "url": "https://www.marianglobalservices.com/"
+  },
+  "serviceType": "Website Design and Development",
+  "areaServed": "Worldwide"
+}

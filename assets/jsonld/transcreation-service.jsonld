@@ -1,0 +1,25 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.marianglobalservices.com/#organization"
+    },
+    {
+      "@type": "Service",
+      "serviceType": "Transcreation Services for Global Marketing Campaigns",
+      "name": "Transcreation Services for Global Marketing Campaigns",
+      "description": "Creative adaptation of marketing and advertising copy, ensuring the localized message evokes the same emotional impact and cultural relevance as the source.",
+      "provider": {
+        "@type": "Organization",
+        "@id": "https://www.marianglobalservices.com/#organization"
+      },
+      "areaServed": {
+        "@type": "GeoShape",
+        "box": "World"
+      },
+      "slogan": "Enterprise-grade Transcreation for Global Marketing Campaigns solutions globally.",
+      "image": "https://www.marianglobalservices.com/assets/images/transcreation-hero.jpg"
+    }
+  ]
+}

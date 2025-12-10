@@ -1,0 +1,25 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.marianglobalservices.com/#organization"
+    },
+    {
+      "@type": "Service",
+      "serviceType": "Professional Proofreading Services for Localization Quality",
+      "name": "Professional Proofreading Services for Localization Quality",
+      "description": "Expert monolingual review by native linguists to ensure grammar, punctuation, and style perfection after translation, guaranteeing natural tone.",
+      "provider": {
+        "@type": "Organization",
+        "@id": "https://www.marianglobalservices.com/#organization"
+      },
+      "areaServed": {
+        "@type": "GeoShape",
+        "box": "World"
+      },
+      "slogan": "Enterprise-grade Professional Proofreading for Localization Quality solutions globally.",
+      "image": "https://www.marianglobalservices.com/assets/images/proofreading-hero.jpg"
+    }
+  ]
+}

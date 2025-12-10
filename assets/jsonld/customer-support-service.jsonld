@@ -1,0 +1,13 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Customer Support Outsourcing for Startups & Businesses",
+  "description": "Scalable, multilingual customer support and helpdesk outsourcing for startups and growing businesses — phone, email, chat, and ticketing support with SLA-backed performance.",
+  "provider": {
+    "@type": "Organization",
+    "name": "Marian Global Services",
+    "url": "https://www.marianglobalservices.com/"
+  },
+  "serviceType": "Customer Support Outsourcing",
+  "areaServed": "Worldwide"
+}

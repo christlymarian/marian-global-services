@@ -1,0 +1,23 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Marian Global Services",
+  "url": "https://www.marianglobalservices.com/",
+  "logo": "https://www.marianglobalservices.com/assets/logo/marian-stacked.png",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+1-555-MARIAN",
+    "contactType": "Sales and Technical Support",
+    "areaServed": "World",
+    "availableLanguage": [
+      "en",
+      "de",
+      "fr",
+      "es",
+      "ja"
+    ]
+  },
+  "sameAs": [
+    "https://www.linkedin.com/company/marian-global-services"
+  ]
+}

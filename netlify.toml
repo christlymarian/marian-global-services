@@ -1,8 +1,6 @@
-﻿Set-Content -Path netlify.toml -Value @'
-[build]
+﻿[build]
   publish = "dist-marian-enhanced"
   functions = "netlify/functions"
 
 [dev]
   functions = "netlify/functions"
-'@ -Encoding UTF8

@@ -1011,3 +1011,12 @@ html, body {
 
 /* Ensure everything in cookie bar receives pointer events */
 #mgs-cookie-consent, #mgs-cookie-consent * { pointer-events: auto !important; }
+/* ===== Fix: Center align Request a Quote button ===== */
+.contact-form button[type="submit"] {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  margin: 24px auto 0 auto;
+  text-align: center;
+}
+

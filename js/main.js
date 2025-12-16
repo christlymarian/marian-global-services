@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+/*
     // --- Form submission & validation ---
   document.querySelectorAll('.contact-form').forEach(contactForm => {
     contactForm.addEventListener('submit', function (e) {
@@ -173,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
   });
-
+*/
 
   // --- Simulated acknowledgment (keeps the previous console output behavior) ---
   function simulateAcknowledgment(userName) {

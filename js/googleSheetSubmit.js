@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const formData = new FormData(form);
 
     try {
-      const response = await fetch("PASTE_YOUR_APPS_SCRIPT_URL_HERE", {
+      const response = await fetch("https://script.google.com/macros/s/AKfycbzGxdy27RS-96OOwhH4KGC3O8lt2kWR_Lx1njWjStRzg1vALP-_qF87d81hSORk5O1n/exec", {
         method: "POST",
         body: formData
       });

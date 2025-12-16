@@ -241,7 +241,7 @@
                     <div class="form-group"><label for="email-layouting">Email*</label><input type="email" id="email-layouting" name="email" required aria-required="true"></div>
                     <div class="form-group"><label for="target_lang-layouting">Target Language(s)*</label><input type="text" id="target_lang-layouting" name="target_lang" placeholder="e.g., German, Simplified Chinese, French" required aria-required="true"></div>
                     <div class="form-group full-width"><label for="message-layouting">Project Description</label><textarea id="message-layouting" name="message" placeholder="Volume, file types, and desired turnaround time..." rows="4"></textarea></div>
-                    <div class="form-group full-width"><label for="file_upload-layouting">Upload Sample File (Max 10MB)</label><input type="file" id="file_upload-layouting" name="file_upload" accept=".zip,.pdf,.docx,.xlf"></div>
+                    
                     <button type="submit" class="btn btn-primary">Request a Custom Quote</button>
                 </form>
             </div>
@@ -276,7 +276,8 @@
 </footer>
     <script src="js/main.js"></script>
     <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-<script src="/js/sendQuoteClient.js" defer></script>
+<script src="js/form-submit.js"></script>
+
 
 </body>
 </html>

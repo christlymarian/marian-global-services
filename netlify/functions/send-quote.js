@@ -76,7 +76,6 @@ exports.handler = async function (event) {
   filename: String(filename),
   content: Buffer.concat(chunks),
   contentType: mimetype,
-  encoding: 'binary',
 });
 
         }

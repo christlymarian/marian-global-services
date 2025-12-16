@@ -69,10 +69,12 @@ exports.handler = async function (event) {
       file.on('end', () => {
         if (filename) {
           attachments.push({
-            filename,
-            content: Buffer.concat(chunks),
-            contentType: mimetype,
-          });
+  filename: String(filename),
+  content: Buffer.concat(chunks),
+  contentType: mimetype,
+  encoding: 'binary',
+});
+
         }
       });
     });
@@ -84,7 +86,7 @@ exports.handler = async function (event) {
           to: RECEIVER_EMAIL,
           subject: `New Quote Request — ${form.name || 'No name'}`,
           html: htmlForAdmin(form),
-          attachments,
+          attachments: attachments.length > 0 ? attachments : [],
         });
 
         if (form.email) {

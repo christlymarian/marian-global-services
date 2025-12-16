@@ -17,7 +17,11 @@ const transporter = nodemailer.createTransport({
     user: SMTP_USER,
     pass: SMTP_PASS,
   },
+  connectionTimeout: 5000,
+  greetingTimeout: 5000,
+  socketTimeout: 5000,
 });
+
 
 const htmlForAdmin = (form) => {
   const rows = Object.entries(form || {})
@@ -81,13 +85,16 @@ exports.handler = async function (event) {
 
     busboy.on('finish', async () => {
       try {
-        await transporter.sendMail({
-          from: SENDER_EMAIL,
-          to: RECEIVER_EMAIL,
-          subject: `New Quote Request — ${form.name || 'No name'}`,
-          html: htmlForAdmin(form),
-          attachments: attachments.length > 0 ? attachments : [],
-        });
+        const adminResult = await transporter.sendMail({
+  from: SENDER_EMAIL,
+  to: christlymarian17@gmail.com,
+  subject: `New Quote Request — ${form.name || 'No name'}`,
+  html: htmlForAdmin(form),
+  attachments: attachments.length > 0 ? attachments : [],
+});
+
+console.log("Admin mail result:", adminResult);
+
 
         if (form.email) {
           await transporter.sendMail({

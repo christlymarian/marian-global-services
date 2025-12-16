@@ -1,5 +1,6 @@
 ﻿// netlify/functions/send-quote.js
 const nodemailer = require('nodemailer');
+const Busboy = require('busboy');
 
 const SMTP_HOST = process.env.SMTP_HOST;
 const SMTP_PORT = Number(process.env.SMTP_PORT || 465);
@@ -49,47 +50,64 @@ const htmlForClient = (form) => {
 };
 
 exports.handler = async function (event) {
-  try {
-    if (event.httpMethod !== 'POST') {
-      return { statusCode: 405, body: 'Method Not Allowed' };
-    }
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, body: 'Method Not Allowed' };
+  }
 
-    // handle base64 encoded body or raw JSON
-    const raw = event.body && (event.isBase64Encoded ? Buffer.from(event.body, 'base64').toString('utf8') : event.body);
-    const payload = typeof raw === 'string' ? JSON.parse(raw) : raw;
+  return new Promise((resolve) => {
+    const busboy = new Busboy({ headers: event.headers });
+    const form = {};
+    const attachments = [];
 
-    const { form = {}, attachments = [] } = payload;
-
-    const mailAttachments = Array.isArray(attachments)
-      ? attachments.map((a) => ({
-          filename: a.filename,
-          content: Buffer.from(a.content, 'base64'),
-          contentType: a.contentType || undefined,
-        }))
-      : [];
-
-    // Send admin email
-    await transporter.sendMail({
-      from: SENDER_EMAIL,
-      to: RECEIVER_EMAIL,
-      subject: `New Quote Request — ${form.name || 'No name'}`,
-      html: htmlForAdmin(form),
-      attachments: mailAttachments,
+    busboy.on('field', (name, value) => {
+      form[name] = value;
     });
 
-    // Send confirmation to client if email provided
-    if (form.email) {
-      await transporter.sendMail({
-        from: SENDER_EMAIL,
-        to: form.email,
-        subject: `We received your quote request — ${form.name || ''}`,
-        html: htmlForClient(form),
+    busboy.on('file', (name, file, filename, encoding, mimetype) => {
+      const chunks = [];
+      file.on('data', (data) => chunks.push(data));
+      file.on('end', () => {
+        if (filename) {
+          attachments.push({
+            filename,
+            content: Buffer.concat(chunks),
+            contentType: mimetype,
+          });
+        }
       });
-    }
+    });
 
-    return { statusCode: 200, body: JSON.stringify({ ok: true, message: 'Emails sent' }) };
-  } catch (err) {
-    console.error('send-quote error:', err);
-    return { statusCode: 500, body: JSON.stringify({ ok: false, error: String(err) }) };
-  }
+    busboy.on('finish', async () => {
+      try {
+        await transporter.sendMail({
+          from: SENDER_EMAIL,
+          to: RECEIVER_EMAIL,
+          subject: `New Quote Request — ${form.name || 'No name'}`,
+          html: htmlForAdmin(form),
+          attachments,
+        });
+
+        if (form.email) {
+          await transporter.sendMail({
+            from: SENDER_EMAIL,
+            to: form.email,
+            subject: `We received your quote request`,
+            html: htmlForClient(form),
+          });
+        }
+
+        resolve({
+          statusCode: 200,
+          body: JSON.stringify({ ok: true }),
+        });
+      } catch (err) {
+        resolve({
+          statusCode: 500,
+          body: JSON.stringify({ ok: false, error: String(err) }),
+        });
+      }
+    });
+
+    busboy.end(Buffer.from(event.body, 'base64'));
+  });
 };

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <url>
+    <loc>https://marianglobalservices.com/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://marianglobalservices.com/services.html</loc>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://marianglobalservices.com/customer-support.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://marianglobalservices.com/devops-projects.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://marianglobalservices.com/website-creation.html</loc>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://marianglobalservices.com/privacy.html</loc>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://marianglobalservices.com/terms.html</loc>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://marianglobalservices.com/security.html</loc>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>
